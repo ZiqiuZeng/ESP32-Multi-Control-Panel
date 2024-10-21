@@ -123,7 +123,7 @@ void WiFiManager::connectToSelectedWiFi(const String ssid, const String password
 
     while (WiFi.status() != WL_CONNECTED && retryCount < 5)
     {
-        delay(1000);
+        vTaskDelay(1000 / portTICK_PERIOD_MS); // Non-blocking delay
         retryCount++;
         Serial.printf("Connecting to %s, attempt %d...\n", ssid.c_str(), retryCount);
     }
