@@ -30,8 +30,15 @@ void BluetoothManager::stopAdvertising()
     Serial.println("Bluetooth advertising stopped");
 }
 
+// Return the connection status
+bool BluetoothManager::isConnected()
+{
+    return deviceConnected;
+}
+
 // Override onConnect
-void MyCallbacks::onConnect(BLEServer* pServer) {
+void MyCallbacks::onConnect(BLEServer *pServer)
+{
     Serial.println("Bluetooth device connected!");
     manager->deviceConnected = true;
 }
