@@ -1,12 +1,13 @@
 #include "TaskManager.h"
 #include "WiFiManager.h"
 #include "BluetoothManager.h"
-#include <LEDManager.h>
+#include "LEDManager.h"
+#include "PinConfig.h"
 #include <Arduino.h>
 
 WiFiManager wifiManager;
 BluetoothManager bluetoothManager;
-LEDManager ledManager;
+LEDManager ledManager(RED_LED_PIN, BLUE_LED_PIN);
 
 // Initialize task handles to NULL
 TaskManager::TaskManager() : wifiTaskHandle(NULL), btTaskHandle(NULL), ledTaskHandle(NULL) {}
@@ -103,6 +104,8 @@ void TaskManager::bluetoothTask(void *pvParameters)
 // LED Task function: Manage LED status (e.g., WiFi and Bluetooth status indicators)
 void TaskManager::ledTask(void *pvParameters)
 {
+    bool *isPowered = (bool *)pvParameters;
+
     ledManager.setupLEDs();
     while (true)
     {
