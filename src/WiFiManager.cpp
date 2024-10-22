@@ -140,7 +140,7 @@ void WiFiManager::scanForNetworks()
 
     int networkCount = WiFi.scanNetworks();
 
-    if (!isWiFiAvailable)
+    if (!isWiFiAvailable())
     {
         Serial.println("No Networks Found :(");
     }
